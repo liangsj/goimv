@@ -16,7 +16,7 @@ func main() {
 	http.HandleFunc("/goimv/problem/list", problem.List)
 	http.HandleFunc("/goimv/problem/content", problem.Content)
 	http.HandleFunc("/problem/tips", problem.Tips)
-	http.HandleFunc("/goimv", view.Index)
+	http.HandleFunc("/", view.Index)
 
 	//go run
 	http.HandleFunc("/goimv/goenv/save", goenv.Save)

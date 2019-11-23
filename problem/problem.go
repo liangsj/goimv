@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/goimv/response"
 )
@@ -20,7 +21,7 @@ func List(w http.ResponseWriter, req *http.Request) {
 
 	for _, f := range files {
 
-		if f.IsDir() {
+		if f.IsDir() && !strings.HasPrefix(f.Name(), ".") {
 			problems = append(problems, f.Name())
 		}
 
