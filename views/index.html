@@ -79,6 +79,7 @@
                             json = JSON.parse(data)
                             content = json["Data"]['content'] 
                             $(".content").html(marked(content))
+                            $(".result").html("")
                             codeinput.editor.setValue(json['Data']['template']) 
                             $(".editor-textarea").attr("title",title)
                         })
