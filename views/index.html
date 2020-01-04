@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GOIMV</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- 引入 Bootstrap -->
-        <link href="http://cdn.bootcss.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <script type="text/javascript" src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
         <link href="../static/codemirror-5.49.2/lib/codemirror.css" rel="stylesheet">
@@ -22,75 +19,65 @@
         <script src="../static/codemirror-5.49.2/addon/hint/anyword-hint.js"></script>
         <link href="../static/codemirror-5.49.2/addon/hint/show-hint.css" rel="stylesheet">
 
-        <style>.CodeMirror {border:1px solid #999; background:#ffc}</style>
-        <script type="text/javascript" src='https://cdn.jsdelivr.net/npm/marked/marked.min.js'></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <title>GOIMV</title>
+        <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
     </head>
-    <body>
-        <div style="padding-top: 10px">
-            <div  class="rows" > 
-                <div class="col-md-4 container-fiuled problem-list" style="overflow:scroll; height: 700px">
-                    <a href="#" class="list-group-item active">
-                        剑指offer
-                    </a>
+    <body class="layui-layout-body">
+        <div class="layui-layout layui-layout-admin">
+            <div class="layui-header">
+                <div class="layui-logo">GOIMV</div>
+            </div>
 
-                </div>
-                <div class="col-md-8" style="border:1px solid #ddd; padding:5px">
-                    <div class="container content" style="background-color: #eee;padding:2px; width: 100%; font-size:5px; height:200px; overflow:scroll; border:1px solid #ddd;">
-
-                    </div>
-
-                    <div style="border: 1px solid #ddd; padding:1px"></div>
-
-                    <div class="editor" >
-                        <textarea class="editor-textarea" id="editor" style="height: 400px;width:100%"></textarea>
-                        <div style="padding: 5px; color:red;">快捷键 Ctrl + [ 自动补全</div>
-                    </div>
-                    <div class="col-md-2">
-                        <button  class="save"  style="width:100px; background-color: #d9edf7" onclick="codeinput.save()" >
-                            保存
-                        </button>
-                    </div>
-                    <div class="col-md-2">
-                        <button  class="run" style="width: 100px" onclick="codeinput.run()">
-                            运行
-                        </button>
-                    </div>
-                    <div class="col-md-2">
-                        <button  class="test" style="width: 100px" onclick="codeinput.test()" >
-                            测试
-                        </button>
-                    </div>
-                    <div class="col-md-8 result container " style="background-color: #eee;margin-top:8px; width: 100%; font-size:5px; height:200px; overflow:scroll; border:1px solid #ddd;font-size: large;white-space: pre-line">
-                    </div>
+            <div class="layui-side layui-bg-black">
+                <div class="layui-side-scroll">
+                    <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                    <ul class="layui-nav layui-nav-tree problem-list" id="problem-list" lay-filter="test">
+                    </ul>
                 </div>
             </div>
-        </div>
 
-        </div>
-        <script type="text/javascript"  charset="utf-8">
-            $.post('/goimv/problem/list',{},function(data){
-                json = JSON.parse(data)
-                problems = json['Data']
-                for(i =0; i < problems.length; i++ ){
-                    $('.problem-list').append('<a id=list-item'+i+' class="list-group-item" title='+problems[i]+'>'+problems[i]+'</a>')
-                    $("#list-item"+i).on("click",{title:problems[i]},function(event){
-                        title = event.data.title
-                        $.post("/goimv/problem/content",{title:title},function(data){
-                            json = JSON.parse(data)
-                            content = json["Data"]['content'] 
-                            $(".content").html(marked(content))
-                            $(".result").html("")
-                            codeinput.editor.setValue(json['Data']['template']) 
-                            $(".editor-textarea").attr("title",title)
-                        })
-                    })
-                }
-            }) 
+            <div class="layui-body" style="z-index:-1">
+            <!-- 内容主体区域 -->
+            <div class="layui-card">
+                <div class="layui-card-header">题目</div>
+                <div class="layui-card-body content"></div>
+            </div>
+            <div style="border: 1px solid #ddd; padding:1px"></div>
 
+            <div class="editor" >
+                <textarea class="editor-textarea" id="editor"  style="height: 400px;width:100%;z-index: -1"></textarea>
+                <div style="padding: 5px; color:red;">快捷键 Ctrl + [ 自动补全</div>
+            </div>
+            <div class="">
+
+                <button  class="layui-btn layui-btn run" type="button" onclick="codeinput.run()" >
+                    运行
+                </button>
+                <button  class="layui-btn layui-btn-warm test" type="button" onclick="codeinput.test()" >
+                        测试
+                 </button>
+            </div>
+            <div class="col-md-8 result container " style="background-color: #eee;margin-top:8px; width: 100%; font-size:5px; height:200px; overflow:scroll; border:1px solid #ddd;font-size: large;white-space: pre-line">
+            </div>
+            </div>
+
+
+
+            <div class="layui-footer">
+                <!-- 底部固定区域 -->
+                  liangsj.top
+            </div>
+        </div>
+        <script src="https://www.layuicdn.com/layui/layui.js"></script>
+        <script>
+            //JavaScript代码区域
+            layui.use('element', function(){
+                var element = layui.element;
+
+            });
         </script>
     </body>
 </html>
-
-
-
 

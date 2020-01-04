@@ -11,7 +11,7 @@ var codeinput = {
             indentWithTabs: true,
 styleActiveLine: true,
             mode: "text/x-go",
-            lineNumbers: true,	//显示行号
+            lineNumbers: true,  //显示行号
             extraKeys: {
                 "Ctrl-[": "autocompleteAnyWord",
                 ".": "autocompleteAfterDot"
@@ -58,27 +58,27 @@ styleActiveLine: true,
 
                             switch (autocompleteArray[i].class) {
                                 case "type":
-                                    displayText = // + autocompleteArray[i].class 
+                                    displayText = // + autocompleteArray[i].class
                                            autocompleteArray[i].name + ''
                                         + autocompleteArray[i].type + '';
                                     break;
                                 case "const":
-                                    displayText = // + autocompleteArray[i].class 
+                                    displayText = // + autocompleteArray[i].class
                                          '' + autocompleteArray[i].name + '    '
                                         + autocompleteArray[i].type + '';
                                     break;
                                 case "var":
-                                    displayText = // + autocompleteArray[i].class 
+                                    displayText = // + autocompleteArray[i].class
                                          '' + autocompleteArray[i].name + '    '
                                         + autocompleteArray[i].type + '';
                                     break;
                                 case "package":
-                                    displayText = // + autocompleteArray[i].class 
+                                    displayText = // + autocompleteArray[i].class
                                          '' + autocompleteArray[i].name + ''
                                         + autocompleteArray[i].type + '';
                                     break;
                                 case "func":
-                                    displayText = // + autocompleteArray[i].class 
+                                    displayText = // + autocompleteArray[i].class
                                          '' + autocompleteArray[i].name + ''
                                         + autocompleteArray[i].type.substring(4) + '';
                                     text += '()';
@@ -133,19 +133,37 @@ styleActiveLine: true,
             return CodeMirror.Pass;
         };
 
+        $.post('/goimv/problem/list',{},function(data){
+            json = JSON.parse(data)
+            problems = json['Data']
+            for(i =0; i < problems.length; i++ ){
+                $('.problem-list').append('<li class="layui-nav-item"><a id=list-item'+i+' class="list-group-item" title='+problems[i]+'>'+problems[i]+'</ a></li>')
+                $("#list-item"+i).on("click",{title:problems[i]},function(event){
+                    title = event.data.title
+                    $.post("/goimv/problem/content",{title:title},function(data){
+                        json = JSON.parse(data)
+                        content = json["Data"]['content']
+                        $(".content").html(marked(content))
+                        codeinput.editor.setValue(json['Data']['template'])
+                        $(".editor-textarea").attr("title",title)
+                    })
+                })
+            }
+        })
+
     },
     run : function() {
         code = codeinput.editor.getValue()
         title = $(".editor-textarea").attr('title')
-        $(".result").html("正在连接服务器......") 
+        $(".result").html("正在连接服务器......")
         $.post("/goimv/goenv/save",{code:code,title:title},function(data){
             json = JSON.parse(data)
-            codeinput.editor.setValue(json['Data']['code']) 
+            codeinput.editor.setValue(json['Data']['code'])
             if(json['Errno'] == 0){
 
                 $.post("/goimv/goenv/run",{code:code,title:title,cmd:"run"},function(data){
                     json = JSON.parse(data)
-                    $(".result").html(json['Data']) 
+                    $(".result").html(json['Data'])
                 })
             }
         })
@@ -153,14 +171,14 @@ styleActiveLine: true,
     test : function() {
         code = codeinput.editor.getValue()
         title = $(".editor-textarea").attr('title')
-        $(".result").html("正在连接服务器......") 
+        $(".result").html("正在连接服务器......")
         $.post("/goimv/goenv/save",{code:code,title:title},function(data){
             json = JSON.parse(data)
-            codeinput.editor.setValue(json['Data']['code']) 
+            codeinput.editor.setValue(json['Data']['code'])
             if(json['Errno'] == 0){
                 $.post("/goimv/goenv/run",{code:code,title:title,cmd:"test"},function(data){
                     json = JSON.parse(data)
-                    $(".result").html(json['Data']) 
+                    $(".result").html(json['Data'])
                 })
             }
         })
@@ -173,7 +191,7 @@ styleActiveLine: true,
         title = $(".editor-textarea").attr('title')
         $.post("/goimv/goenv/save",{code:code,title:title},function(data){
             json = JSON.parse(data)
-            codeinput.editor.setValue(json['Data']['code']) 
+            codeinput.editor.setValue(json['Data']['code'])
 
         })
     }
