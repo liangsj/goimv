@@ -5,7 +5,7 @@ GOIMV 是用于快速搭建go言语的刷题站点。
 - 基于golang 开发的后端服务，用于支撑前端展示、题目添加、下发
 - 基于docker 开发的代码运行环境，将运行环境进行隔离。防止提交代码宿主机影响，便于最资源隔离、控制以及回收
 ##工程总体架构
-
+![c0e73ba31b960ab9098d07b1dac0f47.png](https://img.hacpai.com/file/2020/01/c0e73ba31b960ab9098d07b1dac0f47-2e1e9ec7.png)
 ## 代码目录结构
 ```shell
 ----- goenv
