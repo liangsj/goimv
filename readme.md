@@ -39,11 +39,11 @@ GOIMV 是用于快速搭建go言语的刷题站点。
 ## 安装
 ### 环境部署
 相关依赖，确保你已经安装了 golang环境，docker 环境， gocode 和gofmt相关组件
-1、golang docker container下载
+1. golang docker container下载
 ```golang
 docker pull golang
 ```
-2、代码下载
+2. 代码下载
 ```shell
 cd $GOPATH
 git clone ....
