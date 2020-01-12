@@ -45,7 +45,8 @@ docker pull golang
 ```
 2. 代码下载
 ```shell
-cd $GOPATH
+mkdir $GOPATH/github.com
+cd $GOPATH/github.com
 git clone ....
 go run main.go
 ```
