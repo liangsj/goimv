@@ -1,5 +1,5 @@
 # GOIMV 
-GOIMV 是用于快速搭建go言语的刷题站点。
+GOIMV 是用于快速搭建go言语的Oj服务。
 [在线试用](http://liangsj.top/goimv/)
 ## 功能介绍
 - 基于codemirror、gocode 和gofmt 开发的代码编辑器。支持golang语法的高亮、格式化、和代码补全。
