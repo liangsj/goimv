@@ -1,6 +1,6 @@
 # GOIMV 
 GOIMV 是用于快速搭建golang的Oj服务。
-[在线试用](http://liangsj.top/goimv/)
+[在线试用](http://liangsj.cn:8888/)
 ## 功能介绍
 - 基于codemirror、gocode 和gofmt 开发的代码编辑器。支持golang语法的高亮、格式化、和代码补全。
 - 基于golang 开发的后端服务，用于支撑前端展示、题目添加、下发
